@@ -31,7 +31,7 @@ Measure-Command -Expression {
         foreach ($line in $lines) {
             if ($line -match "OBJECT (Table|Report|Codeunit|Page|Query|XMLport|Form|Dataport|MenuSuite) (\d+) (.*)") {
                 if ($newfilepath) {
-                    $arr | Out-File -Append $newfilepath
+                    $arr | Out-File -Append $newfilepath -Encoding default
                     $arr = @()
                 }
                 $newfilepath = (Join-Path -Path $targetpath -ChildPath ($Matches[1].ToLower() + '_' + ('{0:d10}' -f [int]$Matches[2]) + $_.Extension));
