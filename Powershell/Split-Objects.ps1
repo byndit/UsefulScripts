@@ -1,8 +1,8 @@
-﻿$sourcepath = "D:\Source\"
+﻿#slow
+$sourcepath = "D:\Source\"
 $targetpath = "D:\Target\"
- 
+Remove-Item $targetpath*.txt -Recurse -Force 
 Measure-Command -Expression {
-    #slow
     Get-ChildItem $sourcepath  -Filter *.txt | Foreach-Object {
         $filepath = $_.FullName
         $lines = Get-Content -Path $filepath
@@ -20,12 +20,11 @@ Measure-Command -Expression {
     }
 }
 
-
-Measure-Command -Expression {
-    #fast
-    $sourcepath = "D:\Source\"
-    $targetpath = "D:\Target\"
-     
+#fast 
+$sourcepath = "D:\Source\"
+$targetpath = "D:\Target\"
+Remove-Item $targetpath*.txt -Recurse -Force
+Measure-Command -Expression {  
     Get-ChildItem $sourcepath  -Filter *.txt | Foreach-Object {
         $filepath = $_.FullName
         $lines = Get-Content -Path $filepath
