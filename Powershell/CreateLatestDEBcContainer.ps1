@@ -1,4 +1,4 @@
-﻿Set-ExecutionPolicy Unrestricted
+﻿Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
 Install-Module bccontainerhelper
 
 $RootPath = (Split-Path $PSScriptRoot)
