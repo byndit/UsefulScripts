@@ -1,12 +1,13 @@
 ﻿Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
-Install-Module bccontainerhelper
+Import-Module bccontainerhelper
 
 $RootPath = (Split-Path $PSScriptRoot)
-$containerName = 'de-latest'
+$containerName = 'latest'
 $credential = Get-Credential -Message 'Using UserPassword authentication. Please enter credentials for the container.'
 $auth = 'UserPassword'
-$artifactUrl = Get-BcArtifactUrl -type sandbox -country 'de' -select Latest
-$licenseFile = "C:\Temp\license.flf"
+$sasToken = "?sv=XXXX"
+$artifactUrl = Get-BcArtifactUrl -type sandbox -country 'de' -select NextMajor -sasToken  $sasToken
+$licenseFile = "D:\Temp\license.flf"
 
 New-BcContainer `
     -accept_eula `
@@ -19,4 +20,6 @@ New-BcContainer `
     -memoryLimit 8G `
     -includeAL `
     -doNotExportObjectsToText `
-    -updateHosts
+    -updateHosts `
+    -assignPremiumPlan `
+    -includeTestToolkit
