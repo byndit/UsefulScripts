@@ -2,7 +2,7 @@
 Import-Module bccontainerhelper
 
 $RootPath = (Split-Path $PSScriptRoot)
-$containerName = 'latest'
+$containerName = 'bc24'
 $credential = Get-Credential -Message 'Using UserPassword authentication. Please enter credentials for the container.'
 $auth = 'UserPassword'
 $sasToken = "?sv=XXXX"
@@ -17,9 +17,12 @@ New-BcContainer `
     -artifactUrl $artifactUrl `
     -licenseFile $licenseFile `
     -isolation "hyperv" `
+    -includeTestToolkit `
     -memoryLimit 8G `
     -includeAL `
     -doNotExportObjectsToText `
     -updateHosts `
     -assignPremiumPlan `
     -includeTestToolkit
+
+Import-TestToolkitToBcContainer $containerName -includeTestLibrariesOnly
